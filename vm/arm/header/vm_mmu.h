@@ -13,22 +13,34 @@
 */
 
 
+#include "uint64_t.h"
+#include "vm_kernel.h"
+
 /*
-   [VM Architecture] -> level 3 and 4KB for ARM64(ARMv8-A)
+    [VM_Model](https://developer.arm.com/docs/ddi0595/e/aarch64-system-registers/id_aa64mmfr0_el1)
+ */
+typedef union ID_AA64MMFR0_EL1_Register {
+    uint64_t reister_value;
+    struct {
+        uint64_t pa_range:4;        // 3 ~ 0
+        uint64_t asid_bits:4;
+        uint64_t big_end:4;
+        uint64_t sns_men:4;         // support a distinction between Secure and Non-secure Memory
+        uint64_t big_end_el0:4;
+        uint64_t t_gran16:4;
+        uint64_t t_gran64:4;
+        uint64_t t_gran4:4;
+        uint64_t t_gran16_2:4;
+        uint64_t t_gran64_2:4;
+        uint64_t t_gran4_2:4;
+        uint64_t exs:4;
+        uint64_t res0:8;
+        uint64_t fgt:4;
+        uint64_t ecv:4;             // 63 ~ 60
+    };
+} ID_AA64MMFR0_EL1_Register_t;
 
-   63       48 47                             11      0
-   +--------------------------------------------------+
-   |  kernel  |        user addr              |  page |
-   +--------------------------------------------------+
-                   vm_address
-
-   translation table base address registers:
-       TTBR1_EL(1)     -> kernel
-       TTBR0_EL(2/3)   -> user
-
-   translation control register(TCR_ELI):
-       T0SZ and T1SZ are all 0 or all 1
-       Translation Granule(TG) -> 4KB(00)
-*/
 
 void vm_mmu_init(void);
+
+void vm_mmu_context_switch(vm_pt_le1_entry_t *new_proc_pte1, vm_pt_le1_entry_t **old_proc_pte1);
