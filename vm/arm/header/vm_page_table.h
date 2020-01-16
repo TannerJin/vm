@@ -17,13 +17,13 @@
 
 /*
    [ARM64(ARMv8-A) VM Architecture]
-   level lookup: 3 level
-   granule size: 16 KB
+   level lookup: 4 level
+   granule size: 16 KB  (TCR_ELI.tg)
 
-   63       48 47         36 35         25 24          14 13        0
-   +----------------------------------------------------------------+
-   |  kernel  |   level 1   |   level 2   |    level 3   |   page   |
-   +----------------------------------------------------------------+
+   63       48     47    46         36 35         25 24          14 13        0
+   +--------------------------------------------------------------------------+
+   |  kernel  | level 0 |   level 1   |   level 2   |    level 3   |   page   |
+   +--------------------------------------------------------------------------+
                                vm_address
  
    translation table base address registers:
@@ -32,7 +32,9 @@
 */
 
 
-// MARK: Level Table
+/* Page Table Entry (Table)
+ 
+ */
 typedef union vm_lt_table {
     uint64_t value;
     struct {
@@ -49,15 +51,17 @@ typedef union vm_lt_table {
 } vm_lt_table_t;
 
 
-// MARK: Level Block
+/* Page Table Entry (Block)
+ 
+ */
 typedef union vm_lt_block {
     uint64_t value;
     struct {
         uint64_t format:2;                      //  1 ~ 0    *value: 01*
         uint64_t lower_block_attr:10;           // 11 ~ 2
-        uint64_t res1:13;                       // 24 ~ 12
+        uint64_t lower_res0:13;                 // 24 ~ 12
         uint64_t output_addr:23;                // 47 ~ 25
-        uint64_t res0:4;                        // 51 ~ 48
+        uint64_t upper_res0:4;                  // 51 ~ 48
         uint64_t upper_block_attr:12;           // 63 ~ 52
     };
 } vm_lt_block_t;
@@ -66,22 +70,22 @@ typedef union vm_lt_block {
 /*  Level 0 and 1
     name: page table level1
  */
-typedef vm_lt_block_t vm_pt_le1_entry_t;
+typedef vm_lt_block_t vm_pte_le1_t;
 
 
 /*  Level 2
     name: page table level2
  */
-typedef union vm_pt_le2_entry {
+typedef union vm_pte_le2 {
     vm_lt_table_t table;
     vm_lt_block_t block;
-} vm_pt_le2_entry_t;
+} vm_pte_le2_t;
 
 
 /*  Level 3  (16KB Pages Descriptor)
     name: page table level3
  */
-typedef union vm_pt_le3_entry {
+typedef union vm_pte_le3 {
     uint64_t value;
     struct {
         uint64_t format:2;                      //  1 ~ 0       *value: 1 1*
@@ -91,5 +95,5 @@ typedef union vm_pt_le3_entry {
         uint64_t rest0:4;                       // 51 ~ 48
         uint64_t upper_attr:12;                 // 63 ~ 52
     };
-} vm_pt_le3_entry_t;
+} vm_pte_le3_t;
 
