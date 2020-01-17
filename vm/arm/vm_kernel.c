@@ -7,3 +7,7 @@
 //
 
 #include "vm_kernel.h"
+
+void* kern_malloc(uint64_t size){
+    return 0;
+}

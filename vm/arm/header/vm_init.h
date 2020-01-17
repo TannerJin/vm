@@ -6,5 +6,9 @@
 //  Copyright © 2020 jintao. All rights reserved.
 //
 
+#ifndef vm_init_h
+#define vm_init_h
 
 void vm_init(void);
+
+#endif

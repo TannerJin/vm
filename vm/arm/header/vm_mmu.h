@@ -6,6 +6,9 @@
 //  Copyright © 2020 jintao. All rights reserved.
 //
 
+#ifndef vm_mmu_h
+#define vm_mmu_h
+
 /*
    Documents:
    [ARMv8-A Address Translation](https://static.docs.arm.com/100940/0100/armv8_a_address%20translation_100940_0100_en.pdf)
@@ -74,7 +77,7 @@ typedef union TTBR_Register {
     uint64_t value;
     struct {
         uint64_t res0:1;
-        uint64_t address:47;
+        uint64_t pm_addr:47;
         uint64_t asid:16;
     };
 } TTBR_Register_t;
@@ -82,4 +85,9 @@ typedef union TTBR_Register {
 
 void vm_mmu_init(void);
 
+__attribute__((always_inline))
+void vm_mmu_disable(void);
+
 void vm_mmu_context_switch(vm_pte_le1_t *new_proc_pte1, vm_pte_le1_t **old_proc_pte1);
+
+#endif

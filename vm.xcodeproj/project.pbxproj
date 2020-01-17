@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A946512023D1501C008C69B1 /* vm_.h in Headers */ = {isa = PBXBuildFile; fileRef = A946511F23D1501C008C69B1 /* vm_.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9D917AE23CD9D3C00572730 /* vm.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D917AC23CD9D3C00572730 /* vm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9D917C923CD9D7B00572730 /* vm_page.c in Sources */ = {isa = PBXBuildFile; fileRef = A9D917B523CD9D7B00572730 /* vm_page.c */; };
 		A9D917CA23CD9D7B00572730 /* vm_page_table.c in Sources */ = {isa = PBXBuildFile; fileRef = A9D917B623CD9D7B00572730 /* vm_page_table.c */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A946511F23D1501C008C69B1 /* vm_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm_.h; sourceTree = "<group>"; };
 		A9D917A923CD9D3C00572730 /* vm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = vm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9D917AC23CD9D3C00572730 /* vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
 		A9D917AD23CD9D3C00572730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				A9D917BC23CD9D7B00572730 /* vm_mmu.h */,
 				A9D917BE23CD9D7B00572730 /* vm_kernel.h */,
 				A9D917BF23CD9D7B00572730 /* vm_page.h */,
+				A946511F23D1501C008C69B1 /* vm_.h */,
 			);
 			path = header;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			files = (
 				A9D917D823CD9D7B00572730 /* int8_t.h in Headers */,
 				A9D917D923CD9D7B00572730 /* int32_t.h in Headers */,
+				A946512023D1501C008C69B1 /* vm_.h in Headers */,
 				A9D917D123CD9D7B00572730 /* vm_kernel.h in Headers */,
 				A9D917D223CD9D7B00572730 /* vm_page.h in Headers */,
 				A9D917D623CD9D7B00572730 /* int16_t.h in Headers */,

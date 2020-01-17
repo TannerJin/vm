@@ -8,6 +8,7 @@
 
 #include "vm_mmu.h"
 
+void vm_mmu_enable(void);
 void vm_mmu_configure(void);
 void vm_mmu_get_memory_model(ID_AA64MMFR0_EL1_Register_t *register_t);
 
@@ -23,7 +24,7 @@ void vm_mmu_init() {
         "msr TTBR1_EL1, %0;"
         "ibs;"
         :
-        :"r"(kernel_ptb_addr)
+        :"r"(kernel_ptb_pm_addr)
     );
     
     // *
@@ -58,8 +59,8 @@ void vm_mmu_configure() {
     TCR_EL1.t1sz = 48;    // 2^(64-48), 内核区域大小
     TCR_EL1.t0sz = 16;    // 2^(64-16), 用户区域大小
     
-    TCR_EL1.tg1 = 1;      // 01表示16KB
-    TCR_EL1.tg0 = 1;      // 01表示16KB
+    TCR_EL1.tg1 = 1;      // 01表示16KB, 内核(要不设计为4KB??)
+    TCR_EL1.tg0 = 1;      // 01表示16KB，用户(设计为16KB)
     
     ID_AA64MMFR0_EL1_Register_t memory_model_register;
     vm_mmu_get_memory_model(&memory_model_register);
@@ -72,6 +73,35 @@ void vm_mmu_configure() {
                     );
     
     // MMU enable
+    vm_mmu_enable();
+}
+
+
+void vm_mmu_get_memory_model(ID_AA64MMFR0_EL1_Register_t *register_t) {
+    ID_AA64MMFR0_EL1_Register_t memory_model;
+    memory_model.reister_value = 0;
+    
+    __asm__ volatile("mrs %0, ID_AA64MMFR0_EL1;"
+                     
+                     :"=r"(memory_model)
+                     :
+                     );
+    *register_t = memory_model;
+}
+
+__attribute__((always_inline))
+void vm_mmu_disable() {
+    uint64_t SCTLR_EL1_Value = 0;
+    __asm__ volatile("mrs %0, SCTLR_EL1;"
+                     "orr %0, %0 , #0;"          // set bit[0] bit
+                     "msr SCTLR_EL2, %0;"
+                     :"=r"(SCTLR_EL1_Value)
+                     :
+                     );
+}
+
+__attribute__((always_inline))
+void vm_mmu_enable() {
     uint64_t SCTLR_EL1_Value = 0;
     uint64_t SCTLR_EL2_Value = 0;
     uint64_t SCTLR_EL3_Value = 0;   // Secure EL3
@@ -92,20 +122,6 @@ void vm_mmu_configure() {
                      :
                     );
 }
-
-
-void vm_mmu_get_memory_model(ID_AA64MMFR0_EL1_Register_t *register_t) {
-    ID_AA64MMFR0_EL1_Register_t memory_model;
-    memory_model.reister_value = 0;
-    
-    __asm__ volatile("mrs %0, ID_AA64MMFR0_EL1;"
-                     
-                     :"=r"(memory_model)
-                     :
-                     );
-    *register_t = memory_model;
-}
-
 
 void vm_mmu_context_switch(vm_pte_le1_t *new_proc_pte1, vm_pte_le1_t **old_proc_pte1) {
     // TODO: 原子性 or 关调度 ?
