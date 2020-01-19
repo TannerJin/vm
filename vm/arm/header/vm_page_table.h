@@ -127,6 +127,6 @@ typedef union vm_pte_le3 {
 /// @param vm_addr  vm_addr
 pm_address_t vm_addr_tanslate_to_physics_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_addr);
 
-void vm_addr_map_to_physics_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_addr, pm_address_t pm_addr);
+void physics_addr_map_to_vm_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_addr, pm_address_t pm_addr);
 
 #endif

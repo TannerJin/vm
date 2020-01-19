@@ -128,7 +128,6 @@ void vm_mmu_context_switch(vm_pte_le1_t *new_proc_pte1, vm_pte_le1_t **old_proc_
     vm_pte_le1_t* old_pte1;
     __asm__ volatile("mrs %0, TTBR0_EL1;"    // save old TTBR
                      "msr TTBR0_EL1, %1;"    // set new TTBR
-                     
                      :"=r"(old_pte1)
                      :"r"(new_proc_pte1)
                      );

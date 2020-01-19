@@ -37,6 +37,7 @@ pm_address_t vm_addr_tanslate_to_physics_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_add
     return pte3->physics_addr_base + VM_GRANULE_PAGE_OFFSET(vm_addr);
 }
 
+
 void physics_addr_map_to_vm_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_addr, pm_address_t pm_addr) {
     // level 0
     int64_t pte0_index = VM_PTE_LE0_INDEX(vm_addr);
@@ -54,8 +55,8 @@ void physics_addr_map_to_vm_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_add
         // now is block, creat Table
         vm_pte_le3_t* pte_le3_addr = kern_malloc((1<<11)*sizeof(uint64_t));
         if (pte_le3_addr != 0) {
-            pte2_addr[pte2_index].table.next_level_addr = (uint64_t)pte_le3_addr;
-            pte2_addr[pte2_index].format = 3;
+            (pte2_addr + pte2_index)->table.next_level_addr = (uint64_t)pte_le3_addr;
+            (pte2_addr + pte2_index)->format = 3;
         } else {
             // TODO: kernel fault
         }
@@ -67,6 +68,6 @@ void physics_addr_map_to_vm_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_add
     vm_pte_le3_t* pte3 = pte3_addr + pte3_index;
     
     // pm map vm
-    pm_address_t pm_addr_base = (pm_addr & (~VM_GRANULE_PAGE_MASK));
+    pm_address_t pm_addr_base = (pm_addr & (~VM_GRANULE_PAGE_MASK)) >> 14;
     pte3->physics_addr_base = pm_addr_base;
 }
