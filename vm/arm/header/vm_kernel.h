@@ -18,4 +18,6 @@ static vm_pte_le1_t* kernel_ptb_pm_addr;
 
 void* kern_malloc(uint64_t size);
 
+void kern_free(void* ptr);
+
 #endif

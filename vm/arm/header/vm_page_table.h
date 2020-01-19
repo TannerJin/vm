@@ -10,6 +10,7 @@
 #define vm_page_table_h
 
 #include "vm_.h"
+#include "pm_.h"
 
 /*
     Document
@@ -118,6 +119,7 @@ typedef union vm_pte_le3 {
 /*  VM_GRANULE
     
  */
+#define VM_GRANULE_PAGE_SHIFT 14
 #define VM_GRANULE_PAGE_MASK 0x0000000000003FFF
 #define VM_GRANULE_PAGE_OFFSET(vm_addr) (vm_addr & VM_GRANULE_PAGE_MASK)
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A920ED8623D431FB00D29CB4 /* pm_.h in Headers */ = {isa = PBXBuildFile; fileRef = A920ED8423D431FB00D29CB4 /* pm_.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A920ED8723D431FB00D29CB4 /* pm_.c in Sources */ = {isa = PBXBuildFile; fileRef = A920ED8523D431FB00D29CB4 /* pm_.c */; };
+		A920ED8A23D436BD00D29CB4 /* pm_page.h in Headers */ = {isa = PBXBuildFile; fileRef = A920ED8823D436BD00D29CB4 /* pm_page.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A920ED8B23D436BD00D29CB4 /* pm_page.c in Sources */ = {isa = PBXBuildFile; fileRef = A920ED8923D436BD00D29CB4 /* pm_page.c */; };
 		A946512023D1501C008C69B1 /* vm_.h in Headers */ = {isa = PBXBuildFile; fileRef = A946511F23D1501C008C69B1 /* vm_.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9D917AE23CD9D3C00572730 /* vm.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D917AC23CD9D3C00572730 /* vm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9D917C923CD9D7B00572730 /* vm_page.c in Sources */ = {isa = PBXBuildFile; fileRef = A9D917B523CD9D7B00572730 /* vm_page.c */; };
@@ -30,6 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A920ED8423D431FB00D29CB4 /* pm_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pm_.h; sourceTree = "<group>"; };
+		A920ED8523D431FB00D29CB4 /* pm_.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pm_.c; sourceTree = "<group>"; };
+		A920ED8823D436BD00D29CB4 /* pm_page.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pm_page.h; sourceTree = "<group>"; };
+		A920ED8923D436BD00D29CB4 /* pm_page.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pm_page.c; sourceTree = "<group>"; };
 		A946511F23D1501C008C69B1 /* vm_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm_.h; sourceTree = "<group>"; };
 		A9D917A923CD9D3C00572730 /* vm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = vm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9D917AC23CD9D3C00572730 /* vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
@@ -96,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				A9D917BA23CD9D7B00572730 /* header */,
+				A920ED8523D431FB00D29CB4 /* pm_.c */,
+				A920ED8923D436BD00D29CB4 /* pm_page.c */,
 				A9D917B923CD9D7B00572730 /* vm_init.c */,
 				A9D917B623CD9D7B00572730 /* vm_page_table.c */,
 				A9D917B723CD9D7B00572730 /* vm_mmu.c */,
@@ -108,6 +118,8 @@
 		A9D917BA23CD9D7B00572730 /* header */ = {
 			isa = PBXGroup;
 			children = (
+				A920ED8423D431FB00D29CB4 /* pm_.h */,
+				A920ED8823D436BD00D29CB4 /* pm_page.h */,
 				A9D917BD23CD9D7B00572730 /* vm_init.h */,
 				A9D917BB23CD9D7B00572730 /* vm_page_table.h */,
 				A9D917BC23CD9D7B00572730 /* vm_mmu.h */,
@@ -142,11 +154,13 @@
 			files = (
 				A9D917D823CD9D7B00572730 /* int8_t.h in Headers */,
 				A9D917D923CD9D7B00572730 /* int32_t.h in Headers */,
+				A920ED8A23D436BD00D29CB4 /* pm_page.h in Headers */,
 				A946512023D1501C008C69B1 /* vm_.h in Headers */,
 				A9D917D123CD9D7B00572730 /* vm_kernel.h in Headers */,
 				A9D917D223CD9D7B00572730 /* vm_page.h in Headers */,
 				A9D917D623CD9D7B00572730 /* int16_t.h in Headers */,
 				A9D917D523CD9D7B00572730 /* uint8_t.h in Headers */,
+				A920ED8623D431FB00D29CB4 /* pm_.h in Headers */,
 				A9D917D723CD9D7B00572730 /* uint64_t.h in Headers */,
 				A9D917D323CD9D7B00572730 /* uint32_t.h in Headers */,
 				A9D917DA23CD9D7B00572730 /* uint16_t.h in Headers */,
@@ -226,8 +240,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A920ED8723D431FB00D29CB4 /* pm_.c in Sources */,
 				A9D917CB23CD9D7B00572730 /* vm_mmu.c in Sources */,
 				A9D917CA23CD9D7B00572730 /* vm_page_table.c in Sources */,
+				A920ED8B23D436BD00D29CB4 /* pm_page.c in Sources */,
 				A9D917C923CD9D7B00572730 /* vm_page.c in Sources */,
 				A9D917CD23CD9D7B00572730 /* vm_init.c in Sources */,
 				A9D917CC23CD9D7B00572730 /* vm_kernel.c in Sources */,

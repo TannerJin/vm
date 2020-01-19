@@ -12,6 +12,5 @@
 #include "uint64_t.h"
 
 typedef uint64_t vm_address_t;
-typedef uint64_t pm_address_t;
 
 #endif

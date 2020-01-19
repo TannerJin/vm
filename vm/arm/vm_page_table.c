@@ -41,7 +41,7 @@ pm_address_t vm_addr_tanslate_to_physics_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_add
 void physics_addr_map_to_vm_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_addr, pm_address_t pm_addr) {
     // level 0
     int64_t pte0_index = VM_PTE_LE0_INDEX(vm_addr);
-    vm_pte_le1_t* pte1_addr = (vm_pte_le1_t *)vm_ttbr0_le0[pte0_index].next_level_addr;
+    vm_pte_le1_t* pte1_addr = (vm_pte_le1_t *)vm_ttbr0_le0[pte0_index].next_level_addr;     // TODO: 这里应该手动转换成虚拟地址??
    
     // level 1
     int64_t pte1_index = VM_PTE_LE1_INDEX(vm_addr);
@@ -55,7 +55,7 @@ void physics_addr_map_to_vm_addr(vm_pte_le1_t* vm_ttbr0_le0, vm_address_t vm_add
         // now is block, creat Table
         vm_pte_le3_t* pte_le3_addr = kern_malloc((1<<11)*sizeof(uint64_t));
         if (pte_le3_addr != 0) {
-            (pte2_addr + pte2_index)->table.next_level_addr = (uint64_t)pte_le3_addr;
+            (pte2_addr + pte2_index)->table.next_level_addr = (uint64_t)pte_le3_addr;       // TODO: 这里应该手动转换成物理地址??
             (pte2_addr + pte2_index)->format = 3;
         } else {
             // TODO: kernel fault

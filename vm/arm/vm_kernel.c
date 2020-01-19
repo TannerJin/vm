@@ -11,3 +11,7 @@
 void* kern_malloc(uint64_t size){
     return 0;
 }
+
+void kern_free(void* ptr) {
+    
+}
