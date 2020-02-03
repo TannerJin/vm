@@ -31,6 +31,8 @@
 		A9D917D823CD9D7B00572730 /* int8_t.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D917C623CD9D7B00572730 /* int8_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9D917D923CD9D7B00572730 /* int32_t.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D917C723CD9D7B00572730 /* int32_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9D917DA23CD9D7B00572730 /* uint16_t.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D917C823CD9D7B00572730 /* uint16_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9F0CE0223E343130083FD5A /* vm_automic.h in Headers */ = {isa = PBXBuildFile; fileRef = A9F0CE0023E343130083FD5A /* vm_automic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9F0CE0323E343130083FD5A /* vm_automic.c in Sources */ = {isa = PBXBuildFile; fileRef = A9F0CE0123E343130083FD5A /* vm_automic.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		A9D917C623CD9D7B00572730 /* int8_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = int8_t.h; sourceTree = "<group>"; };
 		A9D917C723CD9D7B00572730 /* int32_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = int32_t.h; sourceTree = "<group>"; };
 		A9D917C823CD9D7B00572730 /* uint16_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uint16_t.h; sourceTree = "<group>"; };
+		A9F0CE0023E343130083FD5A /* vm_automic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm_automic.h; sourceTree = "<group>"; };
+		A9F0CE0123E343130083FD5A /* vm_automic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vm_automic.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 				A9D917B723CD9D7B00572730 /* vm_mmu.c */,
 				A9D917B823CD9D7B00572730 /* vm_kernel.c */,
 				A9D917B523CD9D7B00572730 /* vm_page.c */,
+				A9F0CE0123E343130083FD5A /* vm_automic.c */,
 			);
 			path = arm;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 				A9D917BE23CD9D7B00572730 /* vm_kernel.h */,
 				A9D917BF23CD9D7B00572730 /* vm_page.h */,
 				A946511F23D1501C008C69B1 /* vm_.h */,
+				A9F0CE0023E343130083FD5A /* vm_automic.h */,
 			);
 			path = header;
 			sourceTree = "<group>";
@@ -162,6 +168,7 @@
 				A9D917D523CD9D7B00572730 /* uint8_t.h in Headers */,
 				A920ED8623D431FB00D29CB4 /* pm_.h in Headers */,
 				A9D917D723CD9D7B00572730 /* uint64_t.h in Headers */,
+				A9F0CE0223E343130083FD5A /* vm_automic.h in Headers */,
 				A9D917D323CD9D7B00572730 /* uint32_t.h in Headers */,
 				A9D917DA23CD9D7B00572730 /* uint16_t.h in Headers */,
 				A9D917D423CD9D7B00572730 /* int64_t.h in Headers */,
@@ -241,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A920ED8723D431FB00D29CB4 /* pm_.c in Sources */,
+				A9F0CE0323E343130083FD5A /* vm_automic.c in Sources */,
 				A9D917CB23CD9D7B00572730 /* vm_mmu.c in Sources */,
 				A9D917CA23CD9D7B00572730 /* vm_page_table.c in Sources */,
 				A920ED8B23D436BD00D29CB4 /* pm_page.c in Sources */,

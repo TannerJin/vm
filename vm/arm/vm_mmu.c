@@ -21,8 +21,8 @@ void vm_mmu_init() {
     
     // set kernel translation table addr
     __asm__ volatile(
-        "msr TTBR1_EL1, %0;"
-        "ibs;"
+        "msr TTBR1_EL1, %0\n"
+//        "ibs;"
         :
         :"r"(kernel_ptb_pm_addr)
     );
@@ -38,14 +38,14 @@ void vm_mmu_init() {
  */
 void vm_mmu_configure() {
     // stage2 disable
-    uint64_t HCR_EL2 = 0;
     __asm__ volatile(// HCR_EL2.VM = 0
-                     "mrs %0, HCR_EL2;"
-                     "orr %0, %0, #0;"              // set bit[0]
-                     "msr HCR_EL2, %0;"
-                     
-                     :"=r"(HCR_EL2)
+                     "mrs x0, HCR_EL2\n"
+                     "mov x1, 0\n"
+                     "orr x0, x0, x1\n"              // set bit[0]
+                     "msr HCR_EL2, x0;"
                      :
+                     :
+                     :"x0", "x1"
                      );
     
     // TCR_EL1
@@ -91,42 +91,43 @@ void vm_mmu_get_memory_model(ID_AA64MMFR0_EL1_Register_t *register_t) {
 
 __attribute__((always_inline))
 void vm_mmu_disable() {
-    uint64_t SCTLR_EL1_Value = 0;
-    __asm__ volatile("mrs %0, SCTLR_EL1;"
-                     "orr %0, %0 , #0;"          // set bit[0] bit
-                     "msr SCTLR_EL2, %0;"
-                     :"=r"(SCTLR_EL1_Value)
+    __asm__ volatile("mrs x0, SCTLR_EL1\n"
+                     "mov x1, 0\n"
+                     "orr x0, x0, x1\n"          // set bit[0] bit
+                     "msr SCTLR_EL2, x0;"
                      :
+                     :
+                     :"x0", "x1"
                      );
 }
 
 __attribute__((always_inline))
 void vm_mmu_enable() {
-    uint64_t SCTLR_EL1_Value = 0;
-    uint64_t SCTLR_EL2_Value = 0;
-    uint64_t SCTLR_EL3_Value = 0;   // Secure EL3
-    __asm__ volatile(// EL1.M = 1
-                     "mrs %0, SCTLR_EL1;"
-                     "orr %0, %0 , #1;"          // set bit[0] bit
-                     "msr SCTLR_EL2, %0;"
+    __asm__ volatile(
+                     "mov x1, 0\n"
+                     // EL1.M = 1
+                     "mrs x0, SCTLR_EL1\n"
+                     "orr x0, x0, x1\n"          // set bit[0] bit
+                     "msr SCTLR_EL2, x0\n"
                      // EL2.M = 0
-                     "mrs %1, SCTLR_EL2;"
-                     "orr %1, %1 , #0;"          // set bit[0] bit
-                     "msr SCTLR_EL2, %1;"
+                     "mrs x0, SCTLR_EL2\n"
+                     "orr x0, x0, x1\n"          // set bit[0] bit
+                     "msr SCTLR_EL2, x0\n"
                      // EL3.M = 0
-                     "mrs %1, SCTLR_EL3;"
-                     "orr %1, %1 , #0;"          // set bit[0] bit
-                     "msr SCTLR_EL3, %1;"
+                     "mrs x0, SCTLR_EL3\n"
+                     "orr x0, x0, x1\n"          // set bit[0] bit
+                     "msr SCTLR_EL3, x0"
                                 
-                     :"=r"(SCTLR_EL1_Value), "=r"(SCTLR_EL2_Value), "=r"(SCTLR_EL3_Value)
                      :
+                     :
+                     :"x0", "x1"
                     );
 }
 
 void vm_mmu_context_switch(vm_pte_le1_t *new_proc_pte1, vm_pte_le1_t **old_proc_pte1) {
     // TODO: 原子性 or 关调度 ?
     vm_pte_le1_t* old_pte1;
-    __asm__ volatile("mrs %0, TTBR0_EL1;"    // save old TTBR
+    __asm__ volatile("mrs %0, TTBR0_EL1\n"    // save old TTBR
                      "msr TTBR0_EL1, %1;"    // set new TTBR
                      :"=r"(old_pte1)
                      :"r"(new_proc_pte1)
